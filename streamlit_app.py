@@ -7,10 +7,13 @@ st.title("Interactive Data Visualizations with World Population for year 2023")
 st.write("Explore an interactive bar chart with population data.")
 
 # Load and display the HTML visualization
-with open('/Users/lamaissa/Downloads/interactive_bar_chart.html', 'r', encoding='utf-8') as f:
+#with open('/Users/lamaissa/Downloads/interactive_bar_chart.html', 'r', encoding='utf-8') as f:
+ #   html = f.read()
+#st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Load and display the HTML visualization using a relative path
+with open('interactive_bar_chart.html', 'r', encoding='utf-8') as f:
     html = f.read()
 st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
-
 
 # 2 Set the title and introductory text for your app
 st.write("Explore an interactive scatter plot with population data.")
