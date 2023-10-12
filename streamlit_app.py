@@ -42,38 +42,4 @@ else:
 median_age_values = np.sort(data["MedianAge"].unique())
 
 # Create a slider for selecting median age
-selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
-
-# Display a title and description for the choropleth map
-#st.markdown("## Median Age Choropleth Map")
-st.markdown("This choropleth map displays the median age of countries with colors indicating the median age.")
-# Round the selected median age to the nearest integer
-selected_median_age = int(selected_median_age)
-
-# Filter the data based on the selected median age
-filtered_data = data[data["MedianAge"] == selected_median_age]
-
-# Display a choropleth map with median age data
-fig_map = px.choropleth(
-    filtered_data,
-    locations="Country",
-    locationmode="country names",
-    color="MedianAge",
-    title=f"World Population Median Age in {selected_median_age}",
-    hover_name="Country",
-    color_continuous_scale=px.colors.sequential.Plasma
-)
-
-fig_map.update_geos(
-    showcoastlines=True,
-    coastlinecolor="Black"
-)
-
-st.plotly_chart(fig_map)
-
-# Function to create a downloadable link for the dataset
-def get_table_download_link(data):
-    csv = data.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="world_population_data.csv">Download Dataset</a>'
-    return href
+selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)),
