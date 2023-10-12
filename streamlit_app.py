@@ -32,8 +32,12 @@ if not filtered_data.empty:
 else:
     st.write("No data selected. Please choose one or more countries for comparison.")
 
+
+# Get unique median age values from the dataset
+median_age_values = data["MedianAge"].unique()
+
 # Create a slider for selecting median age
-selected_median_age = st.slider("Select Median Age", min_value=data["MedianAge"].min(), max_value=data["MedianAge"].max(), value=data["MedianAge"].min())
+selected_median_age = st.slider("Select Median Age", min_value=min(median_age_values), max_value=max(median_age_values), value=min(median_age_values))
 
 # Filter the data based on the selected median age
 filtered_data = data[data["MedianAge"] == selected_median_age]
