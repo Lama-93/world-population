@@ -22,10 +22,10 @@ selected_metrics = st.sidebar.multiselect("Select Metrics", data.columns)
 # Filter the data based on user selection
 filtered_data = data[selected_metrics]
 
-# Display a line chart using Plotly Express
-st.write("## Line Chart")
-fig_line = px.line(filtered_data, x="YearlyChange", y="Population2023", title="Population vs. Yearly Change")
-st.plotly_chart(fig_line)
+# Display a bar chart using Plotly Express
+st.write("## Bar Chart")
+fig_bar = px.bar(filtered_data, x="Country", y="Population2023", title="Population by Country")
+st.plotly_chart(fig_bar)
 
 # Display a scatter plot using Plotly Express
 st.write("## Scatter Plot")
