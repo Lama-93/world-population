@@ -41,7 +41,7 @@ else:
 
 
 
-
+st.write("## World Population Choropleth Map by Median Age")
 # Get unique median age values from the dataset
 median_age_values = np.sort(data["MedianAge"].unique())
 
@@ -55,7 +55,7 @@ selected_median_age = int(selected_median_age)
 filtered_data = data[data["MedianAge"] == selected_median_age]
 
 # Create a choropleth map with median age data
-st.write("## World Population Choropleth Map by Median Age")
+#st.write("## World Population Choropleth Map by Median Age")
 fig_map = px.choropleth(
     filtered_data,
     locations="Country",
