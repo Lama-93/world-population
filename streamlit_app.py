@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 #!pip install plotly
+pip install -r requirements.txt
+
 import plotly.express as px
 
 # Load the dataset from GitHub
