@@ -13,8 +13,8 @@ selected_visualization = st.selectbox("Select a Visualization", ["Visualization 
 
 # Define the HTML files for the visualizations
 visualization_files = {
-    "Visualization 1": "visualization1.html",
-    "Visualization 2": "visualization2.html"
+    "Visualization 1": "3d_scatter_plot5.html",
+    "Visualization 2": "3d_scatter_plot5.html"
 }
 
 # Load and display the selected HTML visualization
