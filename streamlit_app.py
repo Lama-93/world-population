@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 #!pip install plotly
+install pip
 pip install -r requirements.txt
 
 import plotly.express as px
