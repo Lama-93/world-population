@@ -1,27 +1,33 @@
-import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
-import numpy as np
+import pandas as pd
+import plotly.express as px
 
-# Load your "WorldPopulation2023" dataset
-world_population_data = pd.read_csv('WorldPopulation2023new.csv')
+# Load the dataset
+@st.cache
+def load_data():
+    data = pd.read_csv("Worldpopulation2023new.csv")
+    return data
 
-# Create a Streamlit app
-st.title('World Population 2023 Visualization')
+data = load_data()
 
-# Add a slider for selecting the population range
-population_slider = st.slider('Select Population Range', min_value=0, max_value=world_population_data['Population2023'].max(), value=(0, world_population_data['Population2023'].max()))
+# Set the title of your app
+st.title("World Population 2023 Data Visualization")
 
-# Filter the data based on the selected population range
-filtered_data = world_population_data[(world_population_data['Population2023'] >= population_slider[0]) & (world_population_data['Population2023'] <= population_slider[1])]
+# Display the dataset (optional)
+st.dataframe(data)
 
-# Create a bar chart with Matplotlib
-fig, ax = plt.subplots()
-ax.bar(filtered_data['Country'], filtered_data['Population2023'])
-ax.set_xlabel('Country')
-ax.set_ylabel('Population 2023')
-ax.set_title('Population of Countries in 2023')
-plt.xticks(rotation=90)  # Rotate country names for better readability
+# Sidebar filters
+selected_metrics = st.sidebar.multiselect("Select Metrics", data.columns)
 
-# Display the chart in the Streamlit app
-st.pyplot(fig)
+# Filter the data based on user selection
+filtered_data = data[selected_metrics]
+
+# Display a line chart using Plotly Express
+st.write("## Line Chart")
+fig_line = px.line(filtered_data, x="YearlyChange", y="Population2023", title="Population vs. Yearly Change")
+st.plotly_chart(fig_line)
+
+# Display a scatter plot using Plotly Express
+st.write("## Scatter Plot")
+fig_scatter = px.scatter(filtered_data, x="Fert.Rate", y="MedianAge", color="UrbanPop%", size="WorldShare", hover_name="Density", title="Fertility Rate vs. Median Age")
+st.plotly_chart(fig_scatter)
