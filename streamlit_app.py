@@ -23,10 +23,13 @@ st.dataframe(data)
 #selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique(), default=default_countries)
 
 # Create a multi-select widget to select multiple countries
-selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
+#selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
 
 # Filter the data based on the selected countries
 filtered_data = data[data["Country"].isin(selected_countries)]
+
+# Create a multi-select widget to select multiple countries
+selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
 
 # Display a bar chart for the selected countries' population
 if not filtered_data.empty:
