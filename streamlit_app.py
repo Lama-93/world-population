@@ -16,18 +16,13 @@ st.title("World Population 2023 Data Visualization")
 # Display the dataset (optional)
 st.dataframe(data)
 
-# Sidebar filters
-selected_metrics = st.sidebar.multiselect("Select Metrics", data.columns)
+# Create a filter to select a country
+selected_country = st.sidebar.selectbox("Select a Country", data["Country"].unique())
 
-# Filter the data based on user selection
-filtered_data = data[selected_metrics]
+# Filter the data based on the selected country
+filtered_data = data[data["Country"] == selected_country]
 
-# Display a bar chart using Plotly Express
-st.write("## Bar Chart")
-fig_bar = px.bar(filtered_data, x="Country", y="Population2023", title="Population by Country")
+# Display a bar chart for the selected country's population
+st.write("## Population for Selected Country")
+fig_bar = px.bar(filtered_data, x="Country", y="Population2023", title=f"Population for {selected_country}")
 st.plotly_chart(fig_bar)
-
-# Display a scatter plot using Plotly Express
-st.write("## Scatter Plot")
-fig_scatter = px.scatter(filtered_data, x="Fert.Rate", y="MedianAge", color="UrbanPop%", size="WorldShare", hover_name="Density", title="Fertility Rate vs. Median Age")
-st.plotly_chart(fig_scatter)
