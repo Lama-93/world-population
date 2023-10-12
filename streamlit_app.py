@@ -29,9 +29,9 @@ selected_countries = st.sidebar.multiselect("Select Countries for Comparison", d
 # Filter the data based on the selected countries
 filtered_data = data[data["Country"].isin(selected_countries)]
 
+st.title("Bar Cart for selected countries'population in 2023")
 # Display a bar chart for the selected countries' population
 if not filtered_data.empty:
-    st.title("Bar Cart for selected countries'population in 2023")
     st.write("## Population for Selected Countries")
     fig_bar = px.bar(filtered_data, x="Country", y="Population2023", title="Population Comparison")
     st.plotly_chart(fig_bar)
