@@ -2,35 +2,31 @@ import streamlit as st
 import pandas as pd
 import streamlit as st
 
-# 1 Set the title and introductory text for your app
-st.title("Interactive Data Visualizations with World Population for year 2023")
-st.write("Explore an interactive bar chart with population data.")
+import streamlit as st
+import pandas as pd
+import plotly.express as px
 
-# Load and display the HTML visualization using a relative path
-with open('interactive_bar_chart.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Load the world population data
+data = pd.read_csv("WorldPopulation2023.csv")
 
-# 2 Set the title and introductory text for your app
-st.write("Explore an interactive scatter plot with population data.")
+# Set the title and introductory text for your app
+st.title("World Population Visualization for 2023")
+st.write("Explore the population of different continents for the year 2023.")
 
-# Load and display the HTML visualization using a relative path
-with open('3d_scatter_plot5.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Add an explanation
+st.write("This visualization displays the population of continents based on the data for the year 2023.")
 
-# 3 Set the title and introductory text for your app
-st.write("Explore an interactive World map with population data.")
+# Create a dropdown to select a continent
+selected_continent = st.selectbox("Select a Continent:", data["Country"].unique())
 
-# Load and display the HTML visualization using a relative path
-with open('interactive_choropleth_map.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Filter the data based on the selected continent
+filtered_data = data[data["Country"] == selected_continent]
 
-# 4 Set the title and introductory text for your app
-st.write("Explore an interactive Jupiter table with population data.")
+# Create a bar chart
+fig = px.bar(filtered_data, x="YearlyChange", y="Population2023", title=f"Population of {selected_continent} in 2023")
+fig.update_xaxes(title="Yearly Change")
+fig.update_yaxes(title="Population 2023")
 
-# Load and display the HTML visualization using a relative path
-with open('jupyter-table1.html', 'r', encoding='utf-8') as f:
-    html = f.read()
-st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Display the bar chart
+st.plotly_chart(fig)
+
