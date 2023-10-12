@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Load your "WorldPopulation2023" dataset
 world_population_data = pd.read_csv('WorldPopulation2023.csv')
