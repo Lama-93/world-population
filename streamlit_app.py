@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import random
 
 # Load the dataset
 @st.cache
@@ -16,8 +17,9 @@ st.title("World Population 2023 Data Visualization")
 # Display the dataset (optional)
 st.dataframe(data)
 
-# Create a multi-select widget to select multiple countries
-selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
+# Create a filter to select a random set of 3 countries for comparison
+default_countries = random.sample(data["Country"].unique().tolist(), 3)
+selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique(), default=default_countries)
 
 # Filter the data based on the selected countries
 filtered_data = data[data["Country"].isin(selected_countries)]
