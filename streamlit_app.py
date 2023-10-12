@@ -38,17 +38,15 @@ selected_median_age = st.slider("Select Median Age", min_value=data["MedianAge"]
 # Filter the data based on the selected median age
 filtered_data = data[data["MedianAge"] == selected_median_age]
 
-# Create a world map with population data and color by median age
-st.write("## World Population Map by Median Age")
-fig_map = px.scatter_geo(
+# Create a choropleth map with median age data
+st.write("## World Population Choropleth Map by Median Age")
+fig_map = px.choropleth(
     filtered_data,
     locations="Country",
     locationmode="country names",
     color="MedianAge",
-    size="Population2023",
-    title=f"World Population with Median Age {selected_median_age}",
+    title=f"World Population Median Age in {selected_median_age}",
     hover_name="Country",
-    projection="natural earth",
     color_continuous_scale=px.colors.sequential.Plasma,
 )
 
@@ -58,8 +56,3 @@ fig_map.update_geos(
 )
 
 st.plotly_chart(fig_map)
-
-
-
-
-
