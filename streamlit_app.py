@@ -21,10 +21,6 @@ st.dataframe(data)
 # Create a multi-select widget to select multiple countries
 selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
 
-# Add a button to download the dataset
-if st.sidebar.button("Download Dataset"):
-    st.markdown(get_table_download_link(data), unsafe_allow_html=True)
-
 # Display a title and description for the bar chart
 st.markdown("## Population Comparison")
 st.markdown("This bar chart shows the population of the selected countries for comparison.")
@@ -45,8 +41,8 @@ median_age_values = np.sort(data["MedianAge"].unique())
 selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
 
 # Display a title and description for the choropleth map
-st.write("## Median Age Choropleth Map")
-st.write("This choropleth map displays the median age of countries with colors indicating the median age.")
+st.markdown("## Median Age Choropleth Map")
+st.markdown("This choropleth map displays the median age of countries with colors indicating the median age.")
 # Round the selected median age to the nearest integer
 selected_median_age = int(selected_median_age)
 
@@ -70,10 +66,3 @@ fig_map.update_geos(
 )
 
 st.plotly_chart(fig_map)
-
-# Function to create a downloadable link for the dataset
-def get_table_download_link(data):
-    csv = data.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="world_population_data.csv">Download Dataset</a>'
-    return href
