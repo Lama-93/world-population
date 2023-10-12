@@ -3,30 +3,34 @@ import pandas as pd
 import streamlit as st
 
 import streamlit as st
-import pandas as pd
-import plotly.express as px
-
-# Load the world population data
-data = pd.read_csv("WorldPopulation2023.csv")
 
 # Set the title and introductory text for your app
-st.title("World Population Visualization for 2023")
-st.write("Explore the population of different continents for the year 2023.")
+st.title("Interactive Data Visualizations")
+st.write("Explore two related visualizations with interactive features.")
 
-# Add an explanation
-st.write("This visualization displays the population of continents based on the data for the year 2023.")
+# Create a dropdown to select a visualization
+selected_visualization = st.selectbox("Select a Visualization", ["Visualization 1", "Visualization 2"])
 
-# Create a dropdown to select a continent
-selected_continent = st.selectbox("Select a Continent:", data["Country"].unique())
+# Define the HTML files for the visualizations
+visualization_files = {
+    "Visualization 1": "visualization1.html",
+    "Visualization 2": "visualization2.html"
+}
 
-# Filter the data based on the selected continent
-filtered_data = data[data["Country"] == selected_continent]
+# Load and display the selected HTML visualization
+if selected_visualization in visualization_files:
+    with open(visualization_files[selected_visualization], "r", encoding="utf-8") as f:
+        html = f.read()
+    st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
 
-# Create a bar chart
-fig = px.bar(filtered_data, x="YearlyChange", y="Population2023", title=f"Population of {selected_continent} in 2023")
-fig.update_xaxes(title="Yearly Change")
-fig.update_yaxes(title="Population 2023")
+# Optional: Add interactive elements specific to each visualization, such as filters or controls
 
-# Display the bar chart
-st.plotly_chart(fig)
+# Example: If you have filters for Visualization 1
+if selected_visualization == "Visualization 1":
+    selected_category = st.selectbox("Select a Category:", ["Category 1", "Category 2", "Category 3"])
+    # Add code to update Visualization 1 based on the selected category
 
+# Example: If you have filters for Visualization 2
+if selected_visualization == "Visualization 2":
+    selected_data_type = st.selectbox("Select Data Type:", ["Data Type A", "Data Type B"])
+    # Add code to update Visualization 2 based on the selected data type
