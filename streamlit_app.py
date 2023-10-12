@@ -45,7 +45,7 @@ median_age_values = np.sort(data["MedianAge"].unique())
 selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
 
 # Display a title and description for the choropleth map
-st.markdown("## Median Age Choropleth Map")
+#st.markdown("## Median Age Choropleth Map")
 st.markdown("This choropleth map displays the median age of countries with colors indicating the median age.")
 # Round the selected median age to the nearest integer
 selected_median_age = int(selected_median_age)
