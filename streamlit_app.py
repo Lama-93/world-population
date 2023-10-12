@@ -2,23 +2,40 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Load your world population dataset for 2023
-# Replace 'world_population_2023.csv' with your dataset file
-data = pd.read_csv('world_population_2023.csv')
+# Load the dataset from GitHub
+@st.cache
+def load_data():
+    url = 'https://raw.githubusercontent.com/Lama-93/world-population/main/WorldPopulation2023.csv'
+    data = pd.read_csv(url)
+    return data
 
-# Create a Streamlit app
-st.title('World Population 2023 Data Visualization')
-
-# Add a slider for selecting the population
-population_slider = st.slider('Select Population Range', min_value=0, max_value=data['population'].max(), value=(0, data['population'].max()))
+# Load the data
+data = load_data()
+# Add a slider for selecting the population range
+population_slider = st.slider('Select Population Range', min_value=WorldPopulation2023['Population2023'].min(), max_value=WorldPopulation2023['Population2023'].max(), value=(0, WorldPopulation2023['Population2023'].max()))
 
 # Filter the data based on the selected population range
-filtered_data = data[(data['population'] >= population_slider[0]) & (data['population'] <= population_slider[1])]
+filtered_data = suiciderates[(WorldPopulation2023['population'] >= population_slider[0]) & (WorldPopulation2023['population'] <= population_slider[1])]
 
-# Display a table with the filtered data
-st.write("Filtered Data:")
-st.write(filtered_data)
+# Create the suicide rate map for the selected year
+def create_suicide_rate_map(filtered_data):
+    # Create the choropleth map
+    fig_map = px.choropleth(
+        filtered_data,
+        locations="country",
+        locationmode='country names',
+        color="suicide_rate",
+        hover_name="country",
+        projection="natural earth",
+        title="Suicide Rate by Country",
+        color_continuous_scale=px.colors.sequential.Viridis,
+        labels={'suicide_rate': 'Suicide Rate'},
+    )
 
-# Create a scatter plot using Plotly Express
-fig = px.scatter(filtered_data, x='country', y='population', title='World Population 2023')
+    fig_map.update_geos(showcoastlines=True, coastlinecolor="Black", showland=True, landcolor="white")
+
+    return fig_map
+
+# Display the map in the Streamlit app
+fig = create_suicide_rate_map(filtered_data)
 st.plotly_chart(fig)
