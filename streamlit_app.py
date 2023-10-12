@@ -5,7 +5,7 @@ import plotly.express as px
 # Load the dataset
 @st.cache
 def load_data():
-    data = pd.read_csv("Worldpopulation2023new.csv")
+    data = pd.read_csv("WorldPopulation2023new.csv")
     # Clean and convert the "YearlyChange" column to numeric
     data["YearlyChange"] = data["YearlyChange"].str.rstrip('%').astype(float)
     return data
