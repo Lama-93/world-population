@@ -4,8 +4,8 @@ import pandas as pd
 # Load the dataset from GitHub
 @st.cache
 def load_data():
-    #url = 'https://raw.githubusercontent.com/your-username/your-repository/main/WorldPopulation2023.csv'
-    data = pd.read_csv('/Users/lamaissa/Desktop/AUB/Fall 2023/Data Visualization & Communication MSBA325/Assignment 2 Streamlit with pltly Visuals')
+    url = 'https://raw.githubusercontent.com/Lama-93/world-population/main/WorldPopulation2023.csv'
+    data = pd.read_csv(url)
     return data
 
 # Load the data
