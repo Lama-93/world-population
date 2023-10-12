@@ -22,10 +22,10 @@ st.dataframe(data)
 selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique())
 
 # Display a title and description for the bar chart
-st.write("## Population Comparison")
-st.write("This bar chart shows the population of the selected countries for comparison.")
+st.markdown("## Population Comparison")
+st.markdown("This bar chart shows the population of the selected countries for comparison.")
 # Filter the data based on the selected countries
-filtered_data = data[data["Country"].isin(selected_countries)]
+filtered_data = data[data["Country"].isin(selected_countries)
 
 # Display a bar chart for the selected countries' population
 if not filtered_data.empty:
@@ -35,14 +35,14 @@ else:
     st.write("No data selected. Please choose one or more countries for comparison.")
 
 # Get unique median age values from the dataset
-median_age_values = np.sort(data["MedianAge"].unique())
+median_age_values = np.sort(data["MedianAge"].unique()
 
 # Create a slider for selecting median age
 selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
 
 # Display a title and description for the choropleth map
-st.write("## Median Age Choropleth Map")
-st.write("This choropleth map displays the median age of countries with colors indicating the median age.")
+st.markdown("## Median Age Choropleth Map")
+st.markdown("This choropleth map displays the median age of countries with colors indicating the median age.")
 # Round the selected median age to the nearest integer
 selected_median_age = int(selected_median_age)
 
@@ -57,12 +57,12 @@ fig_map = px.choropleth(
     color="MedianAge",
     title=f"World Population Median Age in {selected_median_age}",
     hover_name="Country",
-    color_continuous_scale=px.colors.sequential.Plasma,
+    color_continuous_scale=px.colors.sequential.Plasma
 )
 
 fig_map.update_geos(
     showcoastlines=True,
-    coastlinecolor="Black",
+    coastlinecolor="Black"
 )
 
 st.plotly_chart(fig_map)
