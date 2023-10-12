@@ -68,4 +68,4 @@ fig_map.update_geos(
     coastlinecolor="Black",
 )
 
-st.plotly_chart(fig_map)"
+st.plotly_chart(fig_map)
