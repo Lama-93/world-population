@@ -2,38 +2,23 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Load the dataset from GitHub
-@st.cache
-def load_data():
-    url = 'https://raw.githubusercontent.com/Lama-93/world-population/main/WorldPopulation2023.csv'
-    data = pd.read_csv(url)
-    return data
+# Load your world population dataset for 2023
+# Replace 'world_population_2023.csv' with your dataset file
+data = pd.read_csv('world_population_2023.csv')
 
-# Load the data
-data = load_data()
+# Create a Streamlit app
+st.title('World Population 2023 Data Visualization')
 
-# Set the title and introductory text for your app
-st.title("Population Data Analysis for 2023")
-st.write("Explore population data for the year 2023.")
-
-# Create a slider for population
-selected_population = st.slider("Select a Population Range", int(data["Population2023"].min()), int(data["Population2023"].max()), (int(data["Population2023"].min()), int(data["Population2023"].max())))
+# Add a slider for selecting the population
+population_slider = st.slider('Select Population Range', min_value=0, max_value=data['population'].max(), value=(0, data['population'].max()))
 
 # Filter the data based on the selected population range
-filtered_data = data[(data["Population2023"] >= selected_population[0]) & (data["Population2023"] <= selected_population[1])]
+filtered_data = data[(data['population'] >= population_slider[0]) & (data['population'] <= population_slider[1])]
 
-# Create a map based on the filtered data
-st.subheader("Map of Countries by Population")
-fig = px.scatter_geo(
-    filtered_data,
-    locations="Country",
-    locationmode="country names",
-    text="Country",
-    size="Population2023",
-    projection="natural earth",
-)
+# Display a table with the filtered data
+st.write("Filtered Data:")
+st.write(filtered_data)
 
-fig.update_geos(showcoastlines=True, coastlinecolor="Black", showland=True, landcolor="white")
-
-# Display the map
+# Create a scatter plot using Plotly Express
+fig = px.scatter(filtered_data, x='country', y='population', title='World Population 2023')
 st.plotly_chart(fig)
