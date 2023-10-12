@@ -25,7 +25,7 @@ selected_countries = st.sidebar.multiselect("Select Countries for Comparison", d
 st.markdown("## Population Comparison")
 st.markdown("This bar chart shows the population of the selected countries for comparison.")
 # Filter the data based on the selected countries
-filtered_data = data[data["Country"].isin(selected_countries)
+filtered_data = data[data["Country"].isin(selected_countries)]
 
 # Display a bar chart for the selected countries' population
 if not filtered_data.empty:
@@ -35,7 +35,7 @@ else:
     st.write("No data selected. Please choose one or more countries for comparison.")
 
 # Get unique median age values from the dataset
-median_age_values = np.sort(data["MedianAge"].unique()
+median_age_values = np.sort(data["MedianAge"].unique())
 
 # Create a slider for selecting median age
 selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
@@ -49,7 +49,7 @@ selected_median_age = int(selected_median_age)
 # Filter the data based on the selected median age
 filtered_data = data[data["MedianAge"] == selected_median_age]
 
-# Create a choropleth map with median age data
+# Display a choropleth map with median age data
 fig_map = px.choropleth(
     filtered_data,
     locations="Country",
