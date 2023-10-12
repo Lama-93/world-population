@@ -1,12 +1,12 @@
 import pandas as pd
 import streamlit as st
-import folium
+import matplotlib.pyplot as plt
 
 # Load your "WorldPopulation2023" dataset
 world_population_data = pd.read_csv('WorldPopulation2023.csv')
 
 # Create a Streamlit app
-st.title('World Population 2023 Map')
+st.title('World Population 2023 Visualization')
 
 # Add a slider for selecting the population range
 population_slider = st.slider('Select Population Range', min_value=0, max_value=world_population_data['Population2023'].max(), value=(0, world_population_data['Population2023'].max()))
@@ -14,12 +14,13 @@ population_slider = st.slider('Select Population Range', min_value=0, max_value=
 # Filter the data based on the selected population range
 filtered_data = world_population_data[(world_population_data['Population2023'] >= population_slider[0]) & (world_population_data['Population2023'] <= population_slider[1])]
 
-# Create a folium map
-m = folium.Map(location=[0, 0], zoom_start=2)
+# Create a bar chart with Matplotlib
+fig, ax = plt.subplots()
+ax.bar(filtered_data['Country'], filtered_data['Population2023'])
+ax.set_xlabel('Country')
+ax.set_ylabel('Population 2023')
+ax.set_title('Population of Countries in 2023')
+plt.xticks(rotation=90)  # Rotate country names for better readability
 
-# Add markers for each country
-for _, row in filtered_data.iterrows():
-    folium.Marker([row['Latitude'], row['Longitude']], popup=f"{row['Country']} - {row['Population2023']}").add_to(m)
-
-# Display the map in the Streamlit app
-st.markdown(m._repr_html_(), unsafe_allow_html=True)
+# Display the chart in the Streamlit app
+st.pyplot(fig)
