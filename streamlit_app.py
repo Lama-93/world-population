@@ -30,6 +30,7 @@ filtered_data = data[data["Country"].isin(selected_countries)]
 
 # Display a bar chart for the selected countries' population
 if not filtered_data.empty:
+    st.title("Bar Cart for selected countries'population in 2023")
     st.write("## Population for Selected Countries")
     fig_bar = px.bar(filtered_data, x="Country", y="Population2023", title="Population Comparison")
     st.plotly_chart(fig_bar)
