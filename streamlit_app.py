@@ -15,7 +15,7 @@ data = load_data()
 population_slider = st.slider('Select Population Range', min_value=WorldPopulation2023['Population2023'].min(), max_value=WorldPopulation2023['Population2023'].max(), value=(0, WorldPopulation2023['Population2023'].max()))
 
 # Filter the data based on the selected population range
-filtered_data = suiciderates[(WorldPopulation2023['population'] >= population_slider[0]) & (WorldPopulation2023['population'] <= population_slider[1])]
+filtered_data = WorldPopulation2023[(WorldPopulation2023['Population2023'] >= population_slider[0]) & (WorldPopulation2023['population'] <= population_slider[1])]
 
 # Create the suicide rate map for the selected year
 def create_suicide_rate_map(filtered_data):
@@ -24,12 +24,12 @@ def create_suicide_rate_map(filtered_data):
         filtered_data,
         locations="country",
         locationmode='country names',
-        color="suicide_rate",
+        color="Population2023",
         hover_name="country",
         projection="natural earth",
-        title="Suicide Rate by Country",
+        title="Population Rate by Country",
         color_continuous_scale=px.colors.sequential.Viridis,
-        labels={'suicide_rate': 'Suicide Rate'},
+        labels={'WorldPopulation2023': 'Population2023'},
     )
 
     fig_map.update_geos(showcoastlines=True, coastlinecolor="Black", showland=True, landcolor="white")
