@@ -14,6 +14,7 @@ data = load_data()
 
 # Set the title of your app
 st.title("World Population 2023 Data Visualization")
+st.write("The visualizations below displays an animated map, slide bar, and a comperative bar chart of world population among countries in the year 2023.")
 
 # Display the dataset (optional)
 st.dataframe(data)
