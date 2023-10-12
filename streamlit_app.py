@@ -24,10 +24,10 @@ median_age_values = np.sort(data["MedianAge"].unique())
 selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values))
 
 # Round the selected median age to the nearest integer
-selected_median_age = int(selected_median_age)
+selected_median_age = round(selected_median_age)
 
 # Default selection of four countries at the start
-default_countries = ['Somalia', 'Qatar', 'Egypt', 'Lebanon']
+default_countries = ['Country1', 'Country2', 'Country3', 'Country4']
 selected_countries = st.sidebar.multiselect("Select Countries for Comparison", data["Country"].unique(), default=default_countries)
 
 # Filter the data based on the selected countries
