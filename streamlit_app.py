@@ -1,36 +1,43 @@
 import streamlit as st
 import pandas as pd
-import streamlit as st
 
-import streamlit as st
+# Load the dataset from GitHub
+@st.cache
+def load_data():
+    #url = 'https://raw.githubusercontent.com/your-username/your-repository/main/WorldPopulation2023.csv'
+    data = pd.read_csv('/Users/lamaissa/Desktop/AUB/Fall 2023/Data Visualization & Communication MSBA325/Assignment 2 Streamlit with pltly Visuals')
+    return data
+
+# Load the data
+data = load_data()
 
 # Set the title and introductory text for your app
-st.title("Interactive Data Visualizations")
-st.write("Explore two related visualizations with interactive features.")
+st.title("Interactive World Population Data for 2023")
+st.write("Explore and filter world population data for the year 2023.")
 
-# Create a dropdown to select a visualization
-selected_visualization = st.selectbox("Select a Visualization", ["Visualization 1", "Visualization 2"])
+# Create a sidebar with filters
+st.sidebar.header("Filter Data")
 
-# Define the HTML files for the visualizations
-visualization_files = {
-    "Visualization 1": "3d_scatter_plot5.html",
-    "Visualization 2": "3d_scatter_plot5.html"
-}
+# Filter by Country
+selected_country = st.sidebar.selectbox("Select a Country:", data["Country"].unique())
 
-# Load and display the selected HTML visualization
-if selected_visualization in visualization_files:
-    with open(visualization_files[selected_visualization], "r", encoding="utf-8") as f:
-        html = f.read()
-    st.components.v1.html(html, width=800, height=600)  # Adjust width and height as needed
+# Filter by Columns
+selected_column = st.sidebar.selectbox("Select a Column:", data.columns)
 
-# Optional: Add interactive elements specific to each visualization, such as filters or controls
+# Filter the data based on user selections
+filtered_data = data[data["Country"] == selected_country]
 
-# Example: If you have filters for Visualization 1
-if selected_visualization == "Visualization 1":
-    selected_category = st.selectbox("Select a Category:", ["Category 1", "Category 2", "Category 3"])
-    # Add code to update Visualization 1 based on the selected category
+# Display the filtered data
+st.write(f"Population data for {selected_country} based on {selected_column}:")
+st.write(filtered_data[[selected_column]])
 
-# Example: If you have filters for Visualization 2
-if selected_visualization == "Visualization 2":
-    selected_data_type = st.selectbox("Select Data Type:", ["Data Type A", "Data Type B"])
-    # Add code to update Visualization 2 based on the selected data type
+# Optionally, display a plot or visualization based on the filtered data
+# Example: You can use Plotly, Matplotlib, or other libraries for data visualization here
+# Make sure to add interactivity to the visualization as needed
+
+# Additional interactivity can be added as required
+# For example, add more widgets or filters based on your dataset columns
+# Create a bar chart based on the filtered data
+st.subheader("Visualization of Filtered Data")
+fig = px.bar(filtered_data, x="Country", y=selected_column, title=f"{selected_column} for {selected_country}")
+st.plotly_chart(fig)
