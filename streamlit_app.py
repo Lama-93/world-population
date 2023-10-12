@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import random
+import numpy as np
 
 # Load the dataset
 @st.cache
@@ -33,11 +34,16 @@ else:
     st.write("No data selected. Please choose one or more countries for comparison.")
 
 
+
+
 # Get unique median age values from the dataset
-median_age_values = data["MedianAge"].unique()
+median_age_values = np.sort(data["MedianAge"].unique())
 
 # Create a slider for selecting median age
-selected_median_age = st.slider("Select Median Age", min_value=min(median_age_values), max_value=max(median_age_values), value=min(median_age_values))
+selected_median_age = st.slider("Select Median Age", min_value=int(min(median_age_values)), max_value=int(max(median_age_values)), value=int(min(median_age_values)))
+
+# Round the selected median age to the nearest integer
+selected_median_age = int(selected_median_age)
 
 # Filter the data based on the selected median age
 filtered_data = data[data["MedianAge"] == selected_median_age]
